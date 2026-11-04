@@ -1,0 +1,12 @@
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P001', 'product_name': 'Wireless Mouse', 'category': 'Electronics', 'price': 8500}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P002', 'product_name': 'Notebook A5', 'category': 'Stationery', 'price': 1200.5}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P003', 'product_name': 'Water Bottle', 'category': 'Home', 'price': 3500}
+2026-11-04 15:58:29,492 - WARNING - product_validation - Invalid product: {'product_id': 'P004', 'product_name': 'Office Chair', 'price': 45000}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P005', 'product_name': 'USB-C Cable', 'category': 'Electronics', 'price': -2000}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P006', 'product_name': 'Desk Lamp', 'category': 'Home', 'price': '4500'}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P007', 'product_name': 'Backpack', 'category': 'Fashion', 'price': 'abc'}
+2026-11-04 15:58:29,492 - WARNING - product_validation - Invalid product: {'product_id': 'P008', 'product_name': None, 'category': 'Stationery', 'price': 600}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P003', 'product_name': 'Water Bottle', 'category': 'Home', 'price': 3500}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P010', 'product_name': 'Bluetooth Speaker', 'category': 'Electronics', 'price': 15000}
+2026-11-04 15:58:29,492 - INFO - product_validation - Valid product: {'product_id': 'P011', 'product_name': 'Pen Pack', 'category': 'Stationery', 'price': 800}
+2026-11-04 15:58:29,493 - INFO - product_validation - Products | Total: 11 | Passed: 9 | Failed: 2
