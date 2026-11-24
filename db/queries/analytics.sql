@@ -34,3 +34,21 @@ WHERE o.order_status NOT IN ('canceled', 'unavailable')
 GROUP BY c.customer_unique_id
 ORDER BY orders DESC
 LIMIT 10;
+
+-- Rank products by revenue.
+WITH product_revenue AS (
+    SELECT oi.product_id,
+        SUM(oi.price) AS revenue
+    FROM order_items oi
+        JOIN orders o USING (order_id)
+    WHERE o.order_status NOT IN ('canceled', 'unavailable')
+    GROUP BY oi.product_id
+)
+SELECT product_id,
+    revenue,
+    RANK() OVER (ORDER BY revenue DESC) AS revenue_rank
+FROM product_revenue
+ORDER BY revenue_rank
+LIMIT BY 20;
+
+-- Calculate monthly sales.
