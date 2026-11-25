@@ -52,3 +52,47 @@ ORDER BY revenue_rank
 LIMIT BY 20;
 
 -- Calculate monthly sales.
+SELECT DATE_TRUNC('month', o.order_purchase_timestamp) AS sales_month,
+    SUM(oi.price) AS monthly_sales
+FROM order_items oi
+JOIN orders o USING (order_id)
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
+GROUP BY sales_month
+ORDER BY sales_month;
+
+-- Identify each customer's most recent order.
+WITH ranked AS (
+    SELECT c.customer_unique_id,
+        o.order_id,
+        o.order_purchase_timestamp,
+           ROW_NUMBER() OVER (
+               PARTITION BY c.customer_unique_id
+               ORDER BY o.order_purchase_timestamp DESC
+           ) AS rn
+    FROM orders o
+    JOIN customers c USING (customer_id)
+    WHERE o.order_status NOT IN ('canceled', 'unavailable')
+)
+SELECT customer_unique_id, order_id, order_purchase_timestamp
+FROM ranked
+WHERE rn = 1
+ORDER BY order_purchase_timestamp DESC;
+
+-- Calculate running revenue.
+WITH daily_sales AS (
+    SELECT 
+        CAST(o.order_purchase_timestamp AS DATE) AS order_date,
+        SUM(oi.price) AS daily_revenue
+    FROM orders o
+    JOIN order_items oi USING (order_id)
+    WHERE o.order_status NOT IN ('canceled', 'unavailable')
+    GROUP BY CAST(o.order_purchase_timestamp AS DATE)
+)
+SELECT 
+    order_date,
+    daily_revenue,
+    SUM(daily_revenue) OVER (ORDER BY order_date) AS running_total_revenue
+FROM daily_sales
+ORDER BY order_date;
+
+-- Compare current-month sales with previous-month sales.
